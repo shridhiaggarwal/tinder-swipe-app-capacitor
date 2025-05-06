@@ -18,6 +18,7 @@ const ProductCard = (props: IProductCard) => {
         src={imageUrl}
         alt={name}
         className="w-full h-[350px] object-cover rounded-t-2xl"
+        draggable={false}
       />
       <div className="w-full pt-2 px-4 pb-4">
         <p className="text-lg font-medium text-[#1e1e1d] capitalize">{name}</p>
@@ -38,10 +39,10 @@ const ProductCard = (props: IProductCard) => {
           )}
         </div>
         <div className="flex items-center justify-evenly pt-2">
-          <i className="fa-solid fa-heart border-2 solid border-[#6b7280] rounded-full	text-[#6b7280] p-2" />
-          <i className="fa-solid fa-heart-crack border-2 solid border-[#6b7280] rounded-full	text-[#6b7280] p-2" />
-          <i className="fa-solid fa-cart-plus border-2 solid border-[#6b7280] rounded-full	text-[#6b7280] p-2"></i>
-          <i className="fa-solid fa-circle-info border-2 solid border-[#6b7280] rounded-full	text-[#6b7280] p-2"></i>
+          <i className="fa-solid fa-heart border-2 solid border-[#6b7280] rounded-full	text-[#6b7280] p-2 cursor-pointer" />
+          <i className="fa-solid fa-heart-crack border-2 solid border-[#6b7280] rounded-full	text-[#6b7280] p-2 cursor-pointer" />
+          <i className="fa-solid fa-cart-plus border-2 solid border-[#6b7280] rounded-full	text-[#6b7280] p-2 cursor-pointer"></i>
+          <i className="fa-solid fa-circle-info border-2 solid border-[#6b7280] rounded-full	text-[#6b7280] p-2 cursor-pointer"></i>
         </div>
       </div>
     </div>
