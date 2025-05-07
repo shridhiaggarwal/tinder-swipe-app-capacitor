@@ -12,11 +12,11 @@ const ProductCard = (props: IProductCard) => {
   const { productData } = props;
 
   return (
-    <div className="border-2 border-[#ff444f] border-dashed	rounded-2xl w-[300px] bg-white">
+    <div className="border-2 border-[#ff444f] border-dashed	rounded-2xl w-[18.75rem] min-h-[33.75rem] bg-white">
       <img
         src={productData.imageUrl}
         alt={productData.name}
-        className="w-full h-[350px] object-cover rounded-t-2xl"
+        className="w-full h-[21.875rem] object-cover rounded-t-2xl"
         draggable={false}
       />
       <div className="w-full pt-2 px-4 pb-4">
@@ -43,16 +43,16 @@ const ProductCard = (props: IProductCard) => {
         </div>
         <div className="flex items-center justify-evenly pt-2">
           <button onClick={() => props.handleLikeClick(productData)}>
-            <i className="fa-solid fa-heart border-2 solid border-[#6b7280] rounded-full	text-[#6b7280] p-2 cursor-pointer" />
+            <i className="fa-solid fa-heart border-2 solid border-[#6b7280] hover:border-[#ff444f] rounded-full text-[#6b7280] hover:text-[#ff444f] p-2 cursor-pointer" />
           </button>
           <button onClick={() => props.handleDislikeClick(productData)}>
-            <i className="fa-solid fa-heart-crack border-2 solid border-[#6b7280] rounded-full	text-[#6b7280] p-2 cursor-pointer" />
+            <i className="fa-solid fa-heart-crack border-2 solid border-[#6b7280] hover:border-[#ff444f] rounded-full	text-[#6b7280] hover:text-[#ff444f] p-2 cursor-pointer" />
           </button>
           <button onClick={() => props.handleAddCartClick(productData)}>
-            <i className="fa-solid fa-cart-plus border-2 solid border-[#6b7280] rounded-full	text-[#6b7280] p-2 cursor-pointer"></i>
+            <i className="fa-solid fa-cart-plus border-2 solid border-[#6b7280] hover:border-[#ff444f] rounded-full	text-[#6b7280] hover:text-[#ff444f] p-2 cursor-pointer"></i>
           </button>
           <button onClick={() => props.handleProductInfoClick(productData)}>
-            <i className="fa-solid fa-circle-info border-2 solid border-[#6b7280] rounded-full	text-[#6b7280] p-2 cursor-pointer"></i>
+            <i className="fa-solid fa-circle-info border-2 solid border-[#6b7280] hover:border-[#ff444f] rounded-full	text-[#6b7280] hover:text-[#ff444f] p-2 cursor-pointer"></i>
           </button>
         </div>
       </div>

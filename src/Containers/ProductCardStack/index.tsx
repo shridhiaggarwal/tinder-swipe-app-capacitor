@@ -1,6 +1,6 @@
 import { useState } from "react";
 import ProductCard from "../../Components/ProductCard";
-import products from "../../Utils/products.json";
+import productsData from "../../Utils/products.json";
 import { DIRECTIONS } from "../../Utils/constants";
 import Swiper from "../../Components/Swiper";
 
@@ -15,11 +15,10 @@ export interface IProductData {
 }
 
 const ProductCardStack = () => {
-  const [cards, setCards] = useState<IProductData[]>(products);
-  const originalProducts = [...products]; // Keep a copy of the original products
+  const [products, setProducts] = useState<IProductData[]>(productsData);
+  const originalProducts = [...productsData]; // Keep a copy of the original productsData
 
   const handleSwipe = (direction: DIRECTIONS, product: IProductData) => {
-    console.log(`Swiped ${direction} Product ID: ${product.id}`);
     if (direction === DIRECTIONS.UP) {
       handleAddCartClick(product);
     } else if (direction === DIRECTIONS.LEFT) {
@@ -29,13 +28,13 @@ const ProductCardStack = () => {
     }
 
     // Remove the swiped card
-    const remainingCards = cards.slice(1);
+    const remainingCards = products.slice(1);
 
     if (remainingCards.length === 0) {
-      // If no cards left, reset to the original list
-      setCards(originalProducts);
+      // If no products left, reset to the original list
+      setProducts(originalProducts);
     } else {
-      setCards(remainingCards);
+      setProducts(remainingCards);
     }
   };
 
@@ -55,64 +54,48 @@ const ProductCardStack = () => {
     console.log(`Provide more info Product ID: ${product.id}`);
   };
 
+  const getStackStyle = (index: number) => {
+    return {
+      transform: `translate(${index * 10}px, ${index * 10}px)`,
+      zIndex: products.length - index,
+    };
+  };
+
+  if (products.length === 0) {
+    return <div className="text-xl text-gray-600">No products</div>;
+  }
+
   return (
-    <>
-      {/* {cards.length > 0 ? (
-        cards.slice(0, 3).reverse().map((card, index) => {
-          const isTopCard = index === 0;
-          const zIndex = index + 1;
-          return (
-            <div
-              key={card.id}
-              className="absolute top-0 left-0 w-full h-full"
-              style={{
-                zIndex,
-                transform: `scale(${
-                  1 - (cards.length - 1 - index) * 0.05
-                }) translateY(${(cards.length - 1 - index) * 10}px)`,
-                transition: "transform 0.3s ease",
-              }}
-            >
-              {isTopCard ? (
-                <Swiper onSwipe={(dir) => handleSwipe(dir, card)}>
-                  <ProductCard
-                    productData={card}
-                    handleLikeClick={handleLikeClick}
-                    handleDislikeClick={handleDislikeClick}
-                    handleAddCartClick={handleAddCartClick}
-                    handleProductInfoClick={handleProductInfoClick}
-                  />
-                </Swiper>
-              ) : (
-                <ProductCard
-                  productData={card}
-                  handleLikeClick={handleLikeClick}
-                  handleDislikeClick={handleDislikeClick}
-                  handleAddCartClick={handleAddCartClick}
-                  handleProductInfoClick={handleProductInfoClick}
-                />
-              )}
-            </div>
-          );
-        })
-      ) : (
-        <div className="text-xl text-gray-600">No products</div>
-      )} */}
-      {cards.length > 0 ? (
-        <Swiper key={cards[0].id} onSwipe={(dir) => handleSwipe(dir, cards[0])}>
+    <div className="relative h-[31.25rem] w-[18.75rem]">
+      {products.slice(0, 3).map((product, index) => {
+        const isTopCard = index === 0;
+        const productContent = (
           <ProductCard
-            key={cards[0].id}
-            productData={cards[0]}
+            productData={product}
             handleLikeClick={handleLikeClick}
             handleDislikeClick={handleDislikeClick}
             handleAddCartClick={handleAddCartClick}
             handleProductInfoClick={handleProductInfoClick}
           />
-        </Swiper>
-      ) : (
-        <div className="text-xl text-gray-600">No products</div>
-      )}
-    </>
+        );
+
+        return (
+          <div
+            key={product.id}
+            className="absolute top-0 left-0"
+            style={getStackStyle(index + 1)}
+          >
+            {isTopCard ? (
+              <Swiper onSwipe={(dir) => handleSwipe(dir, product)}>
+                {productContent}
+              </Swiper>
+            ) : (
+              productContent
+            )}
+          </div>
+        );
+      })}
+    </div>
   );
 };
 
